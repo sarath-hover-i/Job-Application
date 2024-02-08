@@ -11,6 +11,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +24,9 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    BrowserAnimationsModule,
+    InputTextareaModule,
+    TableModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],

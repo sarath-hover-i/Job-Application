@@ -1,39 +1,140 @@
 <div class="mainContainer">
-  <span>Application Form</span>
+  <div class="bodyContent">
+    <span>Application Form</span>
 
-  <div class="">
-    <div class="card flex justify-content-center">
-      <input type="text" pInputText [(ngModel)]="name" placeholder="Name" />
+    <!-- __________ Name input Field __________ -->
+
+    <div class="inputFields">
+      <div class="inputUI">
+        <div class="card flex justify-content-center">
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="name"
+            placeholder="Name"
+            required="true"
+          />
+        </div>
+      </div>
+
+      <!-- __________ Phone Number input Field __________ -->
+
+      <div class="inputUI">
+        <div class="card flex justify-content-center">
+          <input
+            type="number"
+            pInputText
+            [(ngModel)]="phone"
+            placeholder="Phone Number"
+            required="true"
+          />
+        </div>
+      </div>
+
+      <!-- __________ Email ID input Field __________ -->
+
+      <div class="inputUI">
+        <div class="card flex justify-content-center">
+          <input
+            type="email"
+            pInputText
+            [(ngModel)]="email"
+            placeholder="Email ID"
+            required="true"
+          />
+        </div>
+      </div>
     </div>
 
-    <div class="card flex justify-content-center">
-      <input
-        type="text"
-        pInputText
-        [(ngModel)]="phone"
-        placeholder="Phone Number"
-      />
+    <!-- __________ Address Text Area __________ -->
+
+    <div class="address">
+      <!-- __________ Current Residency Text Area __________ -->
+
+      <div class="currentResidency">
+        <div class="card flex justify-content-center">
+          <textarea
+            rows="5"
+            cols="37"
+            pInputTextarea
+            [(ngModel)]="currentAddress"
+            placeholder="Current Address"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- __________ Permanent Residency Text Area __________ -->
+
+      <div class="permanentResidency">
+        <div class="card flex justify-content-center">
+          <textarea
+            rows="5"
+            cols="37"
+            pInputTextarea
+            [(ngModel)]="permanentAddress"
+            placeholder="Permanent Address"
+          ></textarea>
+        </div>
+      </div>
     </div>
 
-    <div class="card flex justify-content-center">
-      <input
-        type="email"
-        pInputText
-        [(ngModel)]="email"
-        placeholder="Email ID"
-      />
+    <!-- __________ DropDown Field __________ -->
+
+    <div class="inputFields">
+      <!-- __________ Qualification DropDown Field __________ -->
+
+      <div class="dropUI">
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="qualifications"
+            [(ngModel)]="selectedQualification"
+            optionLabel="name"
+            [showClear]="true"
+            placeholder="Your Qualification"
+            [style]="{ width: '250px' }"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <!-- __________ Total Experience DropDown Field __________ -->
+
+      <div class="dropUI">
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="totalexperiences"
+            [(ngModel)]="selectedTotalExperience"
+            optionLabel="name"
+            [showClear]="true"
+            placeholder="Total Experience"
+            [style]="{ width: '250px' }"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <!-- __________ Relevent Experience DropDown Field __________ -->
+
+      <div class="dropUI">
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="releventExperiences"
+            [(ngModel)]="selectedReleventExperience"
+            optionLabel="name"
+            [showClear]="true"
+            placeholder="Relevent Experience"
+            [style]="{ width: '250px' }"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <!-- __________ Submit Button __________ -->
+
+    <div class="submitBtn">
+      <button>Submit</button>
     </div>
   </div>
 
-  <div class="qualification">
-    <div class="card flex justify-content-center">
-      <p-dropdown
-        [options]="qualifications"
-        [(ngModel)]="selectedQualification"
-        optionLabel="name"
-        [showClear]="true"
-        placeholder="Your Qualification"
-      ></p-dropdown>
-    </div>
-  </div>
+  <!-- __________ Table Content __________ -->
+
+  <div class="tableContent"></div>
 </div>
