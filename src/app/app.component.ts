@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from './service.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 
 interface Qualification {
   name: string;
@@ -33,6 +36,15 @@ interface TableProduct {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
+  // __________ Store State __________
+
+  formData: any = {};
+
+  // __________ Store Array of data __________
+
+  formArray: any[] = [];
+  
   // __________ Qualification Dropdown __________
 
   qualifications: Qualification[] | undefined;
@@ -61,13 +73,60 @@ export class AppComponent implements OnInit {
   phone: number | undefined;
   email: string = '';
 
+  inputForm!: FormGroup;
+
   // __________ Table Field __________
 
   tableProducts!: TableProduct[];
 
   tableCols!: TableColumn[];
 
-  constructor(private serviceService: ServiceService) {}
+  constructor(
+    private serviceService: ServiceService,
+    private formBuilder: FormBuilder
+    ) {
+
+       this.inputForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    phone: [undefined, Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    currentAddress: [""],
+        permanentAddress: [""],
+        selectedQualification: [''],
+      selectedTotalExperience: [''],
+      selectedReleventExperience: [''],
+  });
+    }
+
+    //__________ Handle Submission Function Declaration __________
+
+    onSubmit(){
+      this.formData =this.inputForm.value,
+
+      //__________ Push the formData into formArray __________
+
+      this.formArray.push(this.formData)
+
+      //__________ Add the Submitted formData to the tableProducts array __________
+
+      this.tableProducts.push({
+        name: this.formData.name,
+        phone:this.formData.phone,
+        email:this.formData.email,
+        currentAddress: this.formData.currentAddress,
+      permanentAddress: this.formData.permanentAddress,
+      qualifications: this.formData.selectedQualification.company,
+      totalExperience: this.formData.selectedTotalExperience.totalExp,
+      releventExperience: this.formData.selectedReleventExperience.releventExp,
+      })
+
+      //__________ To Clear the Inputs Fields or inputForm __________
+
+      this.inputForm.reset();
+
+      console.log("::...Form DATA", this.formData)
+      console.log('Form Array:', this.formArray);
+    }
 
   ngOnInit(): void {
     // __________ Table Field __________
@@ -84,6 +143,7 @@ export class AppComponent implements OnInit {
       { header: 'Qualifications', field: 'qualifications' },
       { header: 'Total Experience', field: 'totalExperience' },
       { header: 'Relevent Experience', field: 'releventExperience' },
+      // { header: 'Action', field: '' },
     ];
 
     // __________ Qualifications from API __________

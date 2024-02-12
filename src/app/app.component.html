@@ -4,13 +4,14 @@
 
     <!-- __________ Name input Field __________ -->
 
+  <form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
     <div class="inputFields">
       <div class="inputUI">
         <div class="card flex justify-content-center">
           <input
             type="text"
             pInputText
-            [(ngModel)]="name"
+            formControlName="name"
             placeholder="Name"
             required="true"
           />
@@ -24,7 +25,7 @@
           <input
             type="number"
             pInputText
-            [(ngModel)]="phone"
+            formControlName="phone"
             placeholder="Phone Number"
             required="true"
           />
@@ -38,13 +39,14 @@
           <input
             type="email"
             pInputText
-            [(ngModel)]="email"
+            formControlName="email"
             placeholder="Email ID"
             required="true"
           />
         </div>
       </div>
     </div>
+  
 
     <!-- __________ Address Text Area __________ -->
 
@@ -57,7 +59,7 @@
             rows="5"
             cols="37"
             pInputTextarea
-            [(ngModel)]="currentAddress"
+            formControlName="currentAddress"
             placeholder="Current Address"
           ></textarea>
         </div>
@@ -71,7 +73,7 @@
             rows="5"
             cols="37"
             pInputTextarea
-            [(ngModel)]="permanentAddress"
+            formControlName="permanentAddress"
             placeholder="Permanent Address"
           ></textarea>
         </div>
@@ -87,7 +89,7 @@
         <div class="card flex justify-content-center">
           <p-dropdown
             [options]="qualifications"
-            [(ngModel)]="selectedQualification"
+            formControlName="selectedQualification"
             optionLabel="company"
             [showClear]="true"
             placeholder="Your Qualification"
@@ -102,7 +104,7 @@
         <div class="card flex justify-content-center">
           <p-dropdown
             [options]="totalExperiences"
-            [(ngModel)]="selectedTotalExperience"
+            formControlName="selectedTotalExperience"
             optionLabel="totalExp"
             [showClear]="true"
             placeholder="Total Experience"
@@ -117,7 +119,7 @@
         <div class="card flex justify-content-center">
           <p-dropdown
             [options]="releventExperiences"
-            [(ngModel)]="selectedReleventExperience"
+            formControlName="selectedReleventExperience"
             optionLabel="releventExp"
             [showClear]="true"
             placeholder="Relevent Experience"
@@ -130,8 +132,9 @@
     <!-- __________ Submit Button __________ -->
 
     <div class="submitBtn">
-      <button>Submit</button>
+      <button type="submit">Submit</button>
     </div>
+  </form>
   </div>
 
   <!-- __________ Table Content __________ -->
@@ -148,12 +151,17 @@
             <th *ngFor="let col of columns">
               {{ col.header }}
             </th>
+            <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr>
             <td *ngFor="let col of columns">
               {{ rowData[col.field] }}
+            </td>
+            <td>
+              <button></button>
+              <button></button>
             </td>
           </tr>
         </ng-template>

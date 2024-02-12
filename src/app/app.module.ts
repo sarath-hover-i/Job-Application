@@ -16,6 +16,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 
+
+
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -29,6 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     InputTextareaModule,
     TableModule,
     HttpClientModule,
+   
+    
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
