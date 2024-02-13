@@ -45,6 +45,10 @@ export class AppComponent implements OnInit {
 
   formArray: any[] = [];
   
+  // __________ (for track the row being edited) __________
+
+  editIndex: number | null = null;
+
   // __________ Qualification Dropdown __________
 
   qualifications: Qualification[] | undefined;
@@ -97,36 +101,113 @@ export class AppComponent implements OnInit {
       selectedReleventExperience: [''],
   });
     }
+    
+    //__________ Edit method function Declaration __________
+
+    edit(rowData: TableProduct) {
+
+      //__________ Set the editIndex and populate the form with the data from the selected row __________
+
+      this.editIndex = this.tableProducts.indexOf(rowData);
+      this.inputForm.patchValue({
+        name: rowData.name,
+        phone: rowData.phone,
+        email: rowData.email,
+        currentAddress: rowData.currentAddress,
+        permanentAddress: rowData.permanentAddress,
+        selectedQualification: rowData.qualifications,
+        selectedTotalExperience: rowData.totalExperience,
+        selectedReleventExperience: rowData.releventExperience,
+      })
+
+    }
+
+    //__________ Delete method function Declaration __________
+
+    delete(rowData: TableProduct) {
+      //__________ To remove the row from the tableProducts array __________ 
+
+      const index = this.tableProducts.indexOf(rowData);
+
+      if (index !== -1){
+        this.tableProducts.splice(index, 1)
+      }
+    }
 
     //__________ Handle Submission Function Declaration __________
 
+    // onSubmit(){
+    //   this.formData =this.inputForm.value,
+
+    //   //__________ Push the formData into formArray __________
+
+    //   this.formArray.push(this.formData)
+
+    //   //__________ Add the Submitted formData to the tableProducts array __________
+
+    //   this.tableProducts.push({
+    //     name: this.formData.name,
+    //     phone:this.formData.phone,
+    //     email:this.formData.email,
+    //     currentAddress: this.formData.currentAddress,
+    //   permanentAddress: this.formData.permanentAddress,
+    //   qualifications: this.formData.selectedQualification.company,
+    //   totalExperience: this.formData.selectedTotalExperience.totalExp,
+    //   releventExperience: this.formData.selectedReleventExperience.releventExp,
+    //   })
+
+    //   //__________ To Clear the Inputs Fields or inputForm __________
+
+    //   this.inputForm.reset();
+
+    //   console.log("::...Form DATA", this.formData)
+    //   console.log('Form Array:', this.formArray);
+    // }
+
     onSubmit(){
-      this.formData =this.inputForm.value,
+      this.formData = this.inputForm.value;
 
-      //__________ Push the formData into formArray __________
+      if (this.editIndex !== null){
 
-      this.formArray.push(this.formData)
+        //__________ Update the row in tableProducts if in edit mode __________
 
-      //__________ Add the Submitted formData to the tableProducts array __________
+        this.tableProducts[this.editIndex] ={
+            name: this.formData.name,
+            phone: this.formData.phone,
+            email: this.formData.email,
+            currentAddress: this.formData.currentAddress,
+            permanentAddress: this.formData.permanentAddress,
+            qualifications: this.formData.selectedQualification.company,
+            totalExperience: this.formData.selectedTotalExperience.totalExp,
+            releventExperience: this.formData.selectedReleventExperience.releventExp,
+        }
 
-      this.tableProducts.push({
-        name: this.formData.name,
-        phone:this.formData.phone,
-        email:this.formData.email,
-        currentAddress: this.formData.currentAddress,
-      permanentAddress: this.formData.permanentAddress,
-      qualifications: this.formData.selectedQualification.company,
-      totalExperience: this.formData.selectedTotalExperience.totalExp,
-      releventExperience: this.formData.selectedReleventExperience.releventExp,
-      })
+        this.inputForm.reset();
 
-      //__________ To Clear the Inputs Fields or inputForm __________
+       //__________ Reset the editIndex __________
 
-      this.inputForm.reset();
+       this.editIndex = null;
+      } else {
 
-      console.log("::...Form DATA", this.formData)
-      console.log('Form Array:', this.formArray);
+        //__________ Add the new row to tableProduts __________
+
+        this.tableProducts.push({
+          name: this.formData.name,
+          phone: this.formData.phone,
+          email: this.formData.email,
+          currentAddress: this.formData.currentAddress,
+          permanentAddress: this.formData.permanentAddress,
+          qualifications: this.formData.selectedQualification.company,
+          totalExperience: this.formData.selectedTotalExperience.totalExp,
+          releventExperience: this.formData.selectedReleventExperience.releventExp,
+        });
+
+        this.inputForm.reset();
+
+      }
     }
+
+
 
   ngOnInit(): void {
     // __________ Table Field __________
