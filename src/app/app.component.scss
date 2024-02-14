@@ -84,12 +84,33 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .tableContent {
   border: 1px solid rgb(3, 233, 233);
+
+  //__________ To achieve action Column Fixed __________
+
+  overflow-x: auto;
+}
+
+//__________ To achieve action Column Fixed __________
+.aCard{
+  position: relative;
+}
+.p-table {
+  min-width: 100%; 
 }
 
 .actionBtn{
   display: flex;
   gap: 5px;
+//__________ To achieve action Column Fixed __________
+  
+  position: sticky;
+  right: 0;
+  z-index: 1;
 }
+
+
+
+
 
 .btn{
   border: none;

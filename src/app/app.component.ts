@@ -3,6 +3,7 @@ import { ServiceService } from './service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
+//__________ Dropdown Fields interface __________
 
 interface Qualification {
   name: string;
@@ -13,11 +14,25 @@ interface TotalExperience {
 interface ReleventExperience {
   name: string;
 }
+interface PositionApplied{
+  name: string;
+}
+interface HiringMode{
+  name:string;
+}
+interface SourceOfProfile{
+  name:string;
+}
+
+
+//__________ Table Columns interface __________
 
 interface TableColumn {
   header: string;
   field: string;
 }
+
+//__________ Table Rows interface __________
 
 interface TableProduct {
   name?: string;
@@ -28,6 +43,9 @@ interface TableProduct {
   qualifications?: string;
   totalExperience?: string;
   releventExperience?: string;
+  positionApplied?: string;
+  hiringMode?:string;
+  sourceOfProfile?: string;
 }
 
 @Component({
@@ -64,6 +82,21 @@ export class AppComponent implements OnInit {
   releventExperiences: ReleventExperience[] | undefined;
   selectedReleventExperience: ReleventExperience | undefined;
 
+  // __________ Position Applied Dropdown __________
+
+  positionsApplied: PositionApplied[] | undefined;
+  selectedPositionApplied: PositionApplied | undefined;
+
+  // __________ Position Applied Dropdown __________
+
+  hiringModes: HiringMode[] | undefined;
+  selectedHiringMode: HiringMode | undefined;
+
+  // __________ Source Of Profile Dropdown __________
+
+  sourceOfProfiles: SourceOfProfile[] | undefined;
+  selectedSourceOfProfile: SourceOfProfile | undefined;
+
   // __________ Address Text Area __________
 
   currentAddress!: string;
@@ -99,7 +132,12 @@ export class AppComponent implements OnInit {
         selectedQualification: [''],
       selectedTotalExperience: [''],
       selectedReleventExperience: [''],
+      selectedPositionApplied: [''],
+      selectedHiringMode:[''],
+      selectedSourceOfProfile:[''],
+
   });
+  
     }
     
     //__________ Edit method function Declaration __________
@@ -115,9 +153,12 @@ export class AppComponent implements OnInit {
         email: rowData.email,
         currentAddress: rowData.currentAddress,
         permanentAddress: rowData.permanentAddress,
-        selectedQualification: rowData.qualifications,
-        selectedTotalExperience: rowData.totalExperience,
-        selectedReleventExperience: rowData.releventExperience,
+        selectedQualification: {company:rowData.qualifications},
+        selectedTotalExperience: {totalExp:rowData.totalExperience},
+        selectedReleventExperience: {releventExp:rowData.releventExperience},
+        selectedPositionApplied: {positionApply:rowData.positionApplied},
+        selectedHiringMode:{hiringMMode:rowData.hiringMode},
+        selectedSourceOfProfile:{sourceProfile:rowData.sourceOfProfile}
       })
 
     }
@@ -134,35 +175,7 @@ export class AppComponent implements OnInit {
       }
     }
 
-    //__________ Handle Submission Function Declaration __________
-
-    // onSubmit(){
-    //   this.formData =this.inputForm.value,
-
-    //   //__________ Push the formData into formArray __________
-
-    //   this.formArray.push(this.formData)
-
-    //   //__________ Add the Submitted formData to the tableProducts array __________
-
-    //   this.tableProducts.push({
-    //     name: this.formData.name,
-    //     phone:this.formData.phone,
-    //     email:this.formData.email,
-    //     currentAddress: this.formData.currentAddress,
-    //   permanentAddress: this.formData.permanentAddress,
-    //   qualifications: this.formData.selectedQualification.company,
-    //   totalExperience: this.formData.selectedTotalExperience.totalExp,
-    //   releventExperience: this.formData.selectedReleventExperience.releventExp,
-    //   })
-
-    //   //__________ To Clear the Inputs Fields or inputForm __________
-
-    //   this.inputForm.reset();
-
-    //   console.log("::...Form DATA", this.formData)
-    //   console.log('Form Array:', this.formArray);
-    // }
+   
 
     onSubmit(){
       this.formData = this.inputForm.value;
@@ -180,6 +193,10 @@ export class AppComponent implements OnInit {
             qualifications: this.formData.selectedQualification.company,
             totalExperience: this.formData.selectedTotalExperience.totalExp,
             releventExperience: this.formData.selectedReleventExperience.releventExp,
+            positionApplied: this.formData.selectedPositionApplied.positionApply,
+            hiringMode: this.formData.selectedHiringMode.hiringMMode,
+            sourceOfProfile: this.formData.selectedSourceOfProfile.sourceProfile,
+
         }
 
         this.inputForm.reset();
@@ -200,6 +217,9 @@ export class AppComponent implements OnInit {
           qualifications: this.formData.selectedQualification.company,
           totalExperience: this.formData.selectedTotalExperience.totalExp,
           releventExperience: this.formData.selectedReleventExperience.releventExp,
+          positionApplied: this.formData.selectedPositionApplied.positionApply,
+          hiringMode:this.formData.selectedHiringMode.hiringMMode,
+          sourceOfProfile: this.formData.selectedSourceOfProfile.sourceProfile,
         });
 
         this.inputForm.reset();
@@ -224,6 +244,9 @@ export class AppComponent implements OnInit {
       { header: 'Qualifications', field: 'qualifications' },
       { header: 'Total Experience', field: 'totalExperience' },
       { header: 'Relevent Experience', field: 'releventExperience' },
+      { header: 'Position Applied', field:'positionApplied'},
+      { header: 'Hiring Mode', field:'hiringMode'},
+      { header: 'Source Of Profile ', field:'sourceOfProfile'},
       // { header: 'Action', field: '' },
     ];
 
@@ -252,13 +275,45 @@ export class AppComponent implements OnInit {
     });
 
     // __________ Relevent Experience from API __________
-
+    
     this.serviceService.getReleventExperienceAPi().subscribe((data) => {
       this.releventExperiences = data.users.map(
         (itm: { crypto: { network: string } }) => ({
           releventExp: itm.crypto.network,
         })
-      );
-    });
+        );
+        console.log("::::...REL.EXP", this.releventExperiences)
+      });
+      
+      // __________ Positon Applied from API __________
+    
+      this.serviceService.getPositionAppliedAPi().subscribe((data)=>{
+         this.positionsApplied = data.users.map((itm:{company:{title: string}})=>({
+          positionApply: itm.company.title,
+         }))
+         console.log('::Applied...:', this.positionsApplied);
+    })
+
+      // __________ Hiring Mode from API __________
+    
+      this.serviceService.getHiringModeAPi().subscribe((data)=>{
+         this.hiringModes = data.users.map((itm:{company:{name: string}})=>({
+          hiringMMode: itm.company.name,
+         }))
+         console.log('::Hiring...:', this.hiringModes);
+    })
+
+      // __________ Source of profile from API __________
+    
+      this.serviceService.getSourceOfProfileAPi().subscribe((data)=>{
+         this.sourceOfProfiles = data.users.map((itm:{company:{address: {city: string}}})=>({
+          sourceProfile: itm.company.address.city,
+         }))
+         console.log('::SourceOfProfiles...:', this.sourceOfProfiles);
+    })
+
+
+
+
   }
 }

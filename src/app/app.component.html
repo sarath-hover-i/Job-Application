@@ -127,6 +127,52 @@
           ></p-dropdown>
         </div>
       </div>
+
+      <!-- __________ Position Applied  __________ -->
+
+      <div class="dropUI">
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="positionsApplied"
+            formControlName="selectedPositionApplied"
+            optionLabel="positionApply"
+            [showClear]="true"
+            placeholder="Position Applied"
+            [style]="{ width: '250px' }"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <!-- __________ Position Applied  __________ -->
+
+      <div class="dropUI">
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="hiringModes"
+            formControlName="selectedHiringMode"
+            optionLabel="hiringMMode"
+            [showClear]="true"
+            placeholder="Hiring Mode"
+            [style]="{ width: '250px' }"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <!-- __________ Source of Profile  __________ -->
+
+      <div class="dropUI">
+        <div class="card flex justify-content-center">
+          <p-dropdown
+            [options]="sourceOfProfiles"
+            formControlName="selectedSourceOfProfile"
+            optionLabel="sourceProfile"
+            [showClear]="true"
+            placeholder="Source Of Profile"
+            [style]="{ width: '250px' }"
+          ></p-dropdown>
+        </div>
+      </div>
+    
     </div>
 
     <!-- __________ Submit Button __________ -->
@@ -140,7 +186,7 @@
   <!-- __________ Table Content __________ -->
 
   <div class="tableContent">
-    <div class="card">
+    <div class="card aCard">
       <p-table
         [columns]="tableCols"
         [value]="tableProducts"

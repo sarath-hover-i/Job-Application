@@ -68,4 +68,22 @@ export class ServiceService {
   getReleventExperienceAPi(): Observable<any> {
     return this.httpClient.get(this.apiUrl);
   }
+
+  // __________ Position Applied __________
+
+  getPositionAppliedAPi(): Observable<any> {
+    return this.httpClient.get(this.apiUrl);
+  }
+
+  // __________ Hiring Mode __________
+
+  getHiringModeAPi(): Observable<any> {
+    return this.httpClient.get(this.apiUrl);
+  }
+
+  // __________ Source Of Profile __________
+
+  getSourceOfProfileAPi(): Observable<any> {
+    return this.httpClient.get(this.apiUrl);
+  }
 }
