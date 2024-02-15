@@ -23,6 +23,9 @@ interface HiringMode{
 interface SourceOfProfile{
   name:string;
 }
+interface Status {
+  name:string
+}
 
 
 //__________ Table Columns interface __________
@@ -46,6 +49,7 @@ interface TableProduct {
   positionApplied?: string;
   hiringMode?:string;
   sourceOfProfile?: string;
+  status?:string
 }
 
 @Component({
@@ -97,10 +101,19 @@ export class AppComponent implements OnInit {
   sourceOfProfiles: SourceOfProfile[] | undefined;
   selectedSourceOfProfile: SourceOfProfile | undefined;
 
+  // __________ Source Of Profile Dropdown __________
+
+  statuses: Status[] | undefined;
+  selectedStatus: Status | undefined;
+
   // __________ Address Text Area __________
 
   currentAddress!: string;
   permanentAddress!: string;
+
+  // __________ Details Of Companies Worked Text Area __________
+
+  // detailsOfCompaniesWorked!:[""];
 
   title = 'jobApplication';
 
@@ -135,6 +148,7 @@ export class AppComponent implements OnInit {
       selectedPositionApplied: [''],
       selectedHiringMode:[''],
       selectedSourceOfProfile:[''],
+      selectedStatus:[''],
 
   });
   
@@ -158,7 +172,8 @@ export class AppComponent implements OnInit {
         selectedReleventExperience: {releventExp:rowData.releventExperience},
         selectedPositionApplied: {positionApply:rowData.positionApplied},
         selectedHiringMode:{hiringMMode:rowData.hiringMode},
-        selectedSourceOfProfile:{sourceProfile:rowData.sourceOfProfile}
+        selectedSourceOfProfile:{sourceProfile:rowData.sourceOfProfile},
+        selectedStatus:{name:rowData.status},
       })
 
     }
@@ -196,6 +211,7 @@ export class AppComponent implements OnInit {
             positionApplied: this.formData.selectedPositionApplied.positionApply,
             hiringMode: this.formData.selectedHiringMode.hiringMMode,
             sourceOfProfile: this.formData.selectedSourceOfProfile.sourceProfile,
+            status: this.formData.selectedStatus.name,
 
         }
 
@@ -220,6 +236,7 @@ export class AppComponent implements OnInit {
           positionApplied: this.formData.selectedPositionApplied.positionApply,
           hiringMode:this.formData.selectedHiringMode.hiringMMode,
           sourceOfProfile: this.formData.selectedSourceOfProfile.sourceProfile,
+          status: this.formData.selectedStatus.name,
         });
 
         this.inputForm.reset();
@@ -247,6 +264,7 @@ export class AppComponent implements OnInit {
       { header: 'Position Applied', field:'positionApplied'},
       { header: 'Hiring Mode', field:'hiringMode'},
       { header: 'Source Of Profile ', field:'sourceOfProfile'},
+      { header: 'Status ', field:'status'},
       // { header: 'Action', field: '' },
     ];
 
@@ -312,7 +330,21 @@ export class AppComponent implements OnInit {
          console.log('::SourceOfProfiles...:', this.sourceOfProfiles);
     })
 
+      // __________ Status from API __________
+    
+    //   this.serviceService.getStatusAPi().subscribe((data)=>{
+    //      this.statuses = data.users.map((itm:{hair:{type: string }})=>({
+    //       sStatus: itm.hair.type,
+    //      }))
+    //      console.log('::Status...:', this.statuses);
+    // })
 
+    // __________ Status from Hardcode __________
+
+    this.statuses = [
+      {name: "Selected"},
+      {name: "Rejected"},
+    ]
 
 
   }

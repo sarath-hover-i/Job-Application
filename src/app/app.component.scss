@@ -44,16 +44,26 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 10px;
 }
 
-.address {
+.textareaField {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.permanentResidency {
-  display: flex;
-  gap: 10px;
-}
+//__________ To put button inside textarea box __________
+
+// .textareaContainer{
+//   position: relative;
+// }
+
+// .addCompanyBtn{
+//   position: absolute;
+//   right: 10px;
+//   top: 10px;
+//   background: transparent;
+//   border: none;
+//   outline: none;
+// }
 
 .dropDownFields {
   display: flex;
@@ -88,6 +98,11 @@ input[type="number"]::-webkit-outer-spin-button {
   //__________ To achieve action Column Fixed __________
 
   overflow-x: auto;
+  max-width: 100%;
+}
+
+.scrollable-table-container {
+  min-width: 1rem;   // Set the minimum width for your table
 }
 
 //__________ To achieve action Column Fixed __________
@@ -105,6 +120,7 @@ input[type="number"]::-webkit-outer-spin-button {
   
   position: sticky;
   right: 0;
+  top: 500px;
   z-index: 1;
 }
 
@@ -128,7 +144,7 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: center;
   }
 
-  .address {
+  .textareaField {
     display: flex;
     flex-direction: column;
     align-items: center;

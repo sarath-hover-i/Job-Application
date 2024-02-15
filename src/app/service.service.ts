@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -40,6 +41,8 @@ export class ServiceService {
       },
     ];
   }
+
+
 
   getTable() {
     return Promise.resolve(this.getTableData());
@@ -86,4 +89,22 @@ export class ServiceService {
   getSourceOfProfileAPi(): Observable<any> {
     return this.httpClient.get(this.apiUrl);
   }
+
+  // __________ Status __________
+
+  getStatusAPi(): Observable<any> {
+    return this.httpClient.get(this.apiUrl);
+  }
+
+
+//_________ Currency Symboles __________
+
+getCurrencyIcon():string[]{
+  return[
+    "/assets/dollar.svg",
+    "/assets/euro.svg",
+    "/assets/rupee.svg"
+  ]
+}
+
 }
